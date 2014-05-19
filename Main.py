@@ -18,6 +18,7 @@ class Cuvet(pygame.sprite.Sprite):
         self.value = value
         self.letter = letter
         self.down = False
+        self.active = False
 
         self.font = pygame.font.Font(None, 20)
         self.text = self.font.render(self.letter, 1, (0, 0, 0))
@@ -33,6 +34,12 @@ class Cuvet(pygame.sprite.Sprite):
         if self.down:
             pos = pygame.mouse.get_pos()
             self.rect.center = pos
+        if (not self.down) and self.rect.collidepoint((113, 100)):
+            self.rect.center = (113, 100)
+            self.active = True
+        elif (not self.down) and self.rect.collidepoint((143, 99)):
+            self.rect.center = (143, 99)
+            self.active = True
 
     def click(self, target):
         if self.rect.collidepoint(target) and self.down == False:
