@@ -43,6 +43,9 @@ class Cuvet(pygame.sprite.Sprite):
             self.rect.center = (143, 99)
             self.active = True
             self.holding = 1
+        if not (self.rect.collidepoint((143, 99)) or self.rect.collidepoint((113, 100))):
+            self.active = False
+            self.holding = 2
 
     def click(self, target):
         if self.rect.collidepoint(target) and self.down == False:
@@ -53,11 +56,11 @@ class Cuvet(pygame.sprite.Sprite):
 clock = pygame.time.Clock()
 run = True
 value = 0
-CuHo = [0, 0]
+cuHo = [0, 0]
 schuifValue = 0
 valSrf = pygame.Surface((16, 20)).convert_alpha()
 
-cuvets = pygame.sprite.RenderPlain(Cuvet(10, "A", (85, 170)), Cuvet(170, "B", (115, 170)), Cuvet(1, "C", (145, 170)), Cuvet(179, "D", (175, 170)))
+cuvets = pygame.sprite.RenderPlain(Cuvet(10, "A", (85, 170)), Cuvet(-10, "B", (115, 170)), Cuvet(1, "C", (145, 170)), Cuvet(-1, "D", (175, 170)))
 
 while run:
     for event in pygame.event.get():
@@ -74,12 +77,17 @@ while run:
                 cuvet.click(event.pos)
 
     cuvets.update()
+    cuHold = [0, 0]
     for cuvet in cuvets.sprites():
         if cuvet.active == True:
-            CuHo[cuvet.holding] = cuvet.value
+            cuHold[cuvet.holding] += 1
+            cuHo[cuvet.holding] = cuvet.value
+    for i in range(2):
+        if cuHold[i] == 0:
+            cuHo[i] = 0
 
-    value = abs((schuifValue-CuHo[0]-CuHo[1]) - 90) * 255/90
-    value %= 90
+    value = abs((schuifValue-cuHo[0]-cuHo[1]) - 90) * 255/90
+    value = 180 % (value + 0.001)
 
     screen.blit(background, (0, 0))
     cuvets.draw(screen)
