@@ -49,8 +49,9 @@ class Cuvet(pygame.sprite.Sprite):
 
 clock = pygame.time.Clock()
 run = True
+value = 255
 
-cuvets = pygame.sprite.RenderPlain(Cuvet(10, "A", (100, 150)), Cuvet(170, "B", (130, 150)), Cuvet(1, "C", (160, 150)), Cuvet(179, "D", (190, 150)))
+cuvets = pygame.sprite.RenderPlain(Cuvet(10, "A", (85, 170)), Cuvet(170, "B", (115, 170)), Cuvet(1, "C", (145, 170)), Cuvet(179, "D", (175, 170)))
 
 while run:
     for event in pygame.event.get():
@@ -72,10 +73,13 @@ while run:
     cuvets.draw(screen)
 
     #drawing other stuff
-    pygame.draw.circle(screen, (222, 207, 0), (30, 100), 10)
+    pygame.draw.circle(screen, (222, 0, 0), (30, 100), 10)
     pygame.draw.lines(screen, (0, 0, 0), True, ((70, 130), (70, 110), (75, 110), (75, 90), (65, 90), (65, 110), (70, 110)), 3)
     pygame.draw.lines(screen, (0, 0, 0), False, ((101, 110), (101, 120), (124, 120), (124, 110)), 3)
     pygame.draw.lines(screen, (0, 0, 0), False, ((131, 110), (131, 120), (154, 120), (154, 110)), 3)
+    pygame.draw.lines(screen, (0, 0, 0), True, ((180, 130), (180, 110), (185, 110), (185, 90), (175, 90), (175, 110), (180, 110)), 3)
+    displayScreen = pygame.draw.lines(screen, (0, 0, 0), True, ((210, 130), (210, 110), (218, 110), (218, 90), (202, 90), (202, 110), (210, 110)), 3)
+    pygame.draw.ellipse(screen, (255, 0, 0, value), pygame.Rect((206, 93), (10, 16)))
 
     pygame.display.flip()
     clock.tick(60)
