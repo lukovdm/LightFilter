@@ -4,7 +4,7 @@ from pygame.locals import *
 pygame.init()
 pygame.font.init()
 
-screen = pygame.display.set_mode((640, 480))
+screen = pygame.display.set_mode((500, 200))
 pygame.display.set_caption('Filter the light')
 
 background = pygame.Surface(screen.get_size())
@@ -43,7 +43,7 @@ class Cuvet(pygame.sprite.Sprite):
 clock = pygame.time.Clock()
 run = True
 
-cuvets = pygame.sprite.RenderPlain(Cuvet(10, "A", (100, 10)), Cuvet(170, "B", (100, 50)), Cuvet(1, "C", (100, 100)), Cuvet(179, "D", (100, 150)))
+cuvets = pygame.sprite.RenderPlain(Cuvet(10, "A", (100, 150)), Cuvet(170, "B", (130, 150)), Cuvet(1, "C", (160, 150)), Cuvet(179, "D", (190, 150)))
 
 while run:
     for event in pygame.event.get():
