@@ -63,7 +63,7 @@ while run:
 
     screen.blit(background, (0, 0))
     cuvets.draw(screen)
-
+    pygame.draw.circle(screen, (252, 236, 0), (30, 100), 10)
 
     pygame.display.flip()
     clock.tick(60)
