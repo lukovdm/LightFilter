@@ -19,6 +19,7 @@ class Cuvet(pygame.sprite.Sprite):
         self.letter = letter
         self.down = False
         self.active = False
+        self.holding = 2
 
         self.font = pygame.font.Font(None, 20)
         self.text = self.font.render(self.letter, 1, (0, 0, 0))
@@ -37,9 +38,11 @@ class Cuvet(pygame.sprite.Sprite):
         if (not self.down) and self.rect.collidepoint((113, 100)):
             self.rect.center = (113, 100)
             self.active = True
+            self.holding = 0
         elif (not self.down) and self.rect.collidepoint((143, 99)):
             self.rect.center = (143, 99)
             self.active = True
+            self.holding = 1
 
     def click(self, target):
         if self.rect.collidepoint(target) and self.down == False:
@@ -50,6 +53,8 @@ class Cuvet(pygame.sprite.Sprite):
 clock = pygame.time.Clock()
 run = True
 value = 255
+CuHo = [0, 0]
+schuifValue = 0
 
 cuvets = pygame.sprite.RenderPlain(Cuvet(10, "A", (85, 170)), Cuvet(170, "B", (115, 170)), Cuvet(1, "C", (145, 170)), Cuvet(179, "D", (175, 170)))
 
@@ -68,6 +73,14 @@ while run:
                 cuvet.click(event.pos)
 
     cuvets.update()
+    for cuvet in cuvets.sprites():
+        if cuvet.active == True:
+            CuHo[cuvet.holding] = cuvet.value
+
+    if (schuifValue-CuHo[0]-CuHo[1]) / 90 <=90:
+        value = -255 / 90 * (schuifValue-CuHo[0]-CuHo[1]) + 255
+    else:
+        value = 255 / 90 * (schuifValue-CuHo[0]-CuHo[1]) - 255
 
     screen.blit(background, (0, 0))
     cuvets.draw(screen)
