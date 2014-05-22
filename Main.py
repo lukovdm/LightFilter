@@ -59,6 +59,7 @@ value = 0
 cuHo = [0, 0]
 schuifValue = 0
 valSrf = pygame.Surface((16, 20)).convert_alpha()
+font = pygame.font.Font(None, 20)
 
 cuvets = pygame.sprite.RenderPlain(Cuvet(10, "A", (85, 170)), Cuvet(-10, "B", (115, 170)), Cuvet(1, "C", (145, 170)), Cuvet(-1, "D", (175, 170)))
 
@@ -87,10 +88,13 @@ while run:
             cuHo[i] = 0
 
     value = abs((schuifValue-cuHo[0]-cuHo[1]) - 90) * 255/90
-    value = 180 % (value + 0.001)
+    print value
+
+    text1 = font.render(str(int(value * 100/255)) + "%", True, (0, 0, 0), (255, 255, 255))
 
     screen.blit(background, (0, 0))
     cuvets.draw(screen)
+    screen.blit(text1, (225, 90))
 
     #drawing other stuff
     pygame.draw.rect(screen, (222, 0, 0), pygame.Rect(20, 90, 20, 20), 0)
