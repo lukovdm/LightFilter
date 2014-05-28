@@ -87,10 +87,10 @@ while run:
         if cuHold[i] == 0:
             cuHo[i] = 0
 
-    value = abs((schuifValue-cuHo[0]-cuHo[1]) - 90) * 255/90
-    print value
+    value = abs(abs(schuifValue-cuHo[0]-cuHo[1]) - 90) / 90
+    print value * 100
 
-    text1 = font.render(str(int(value * 100/255)) + "%", True, (0, 0, 0), (255, 255, 255))
+    text1 = font.render(str(int(value * 100)) + "%", True, (0, 0, 0), (255, 255, 255))
 
     screen.blit(background, (0, 0))
     cuvets.draw(screen)
@@ -102,7 +102,7 @@ while run:
     pygame.draw.lines(screen, (0, 0, 0), False, ((101, 110), (101, 120), (124, 120), (124, 110)), 3)
     pygame.draw.lines(screen, (0, 0, 0), False, ((131, 110), (131, 120), (154, 120), (154, 110)), 3)
     pygame.draw.lines(screen, (0, 0, 0), True, ((180, 130), (180, 110), (185, 110), (185, 90), (175, 90), (175, 110), (180, 110)), 3)
-    valSrf.fill((255, 0, 0, value))
+    valSrf.fill((255, 0, 0, value * 255))
     screen.blit(valSrf, (201, 90))
     displayScreen = pygame.draw.lines(screen, (0, 0, 0), True, ((210, 130), (210, 110), (218, 110), (218, 90), (202, 90), (202, 110), (210, 110)), 3)
 
