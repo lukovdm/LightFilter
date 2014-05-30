@@ -57,7 +57,7 @@ clock = pygame.time.Clock()
 run = True
 value = 0
 cuHo = [0, 0]
-schuif = {"value": 0, "pos": 0, "rect": pygame.Rect(80, 50, 30, 20), "click": False}
+schuif = {"value": 0.0, "rect": pygame.Rect(123, 50, 30, 20), "click": False}
 valSrf = pygame.Surface((16, 20)).convert_alpha()
 font = pygame.font.Font(None, 20)
 
@@ -78,8 +78,8 @@ while run:
         if event.type == MOUSEBUTTONUP:
             for cuvet in cuvets.sprites():
                 cuvet.click(event.pos)
-            if schuif["rect"]:
-                schuif["click"] = True
+            if schuif["click"]:
+                schuif["click"] = False
     cuvets.update()
     cuHold = [0, 0]
     for cuvet in cuvets.sprites():
@@ -91,7 +91,6 @@ while run:
             cuHo[i] = 0
 
     value = abs(abs(schuif["value"]-cuHo[0]-cuHo[1]) - 90) / 90
-    print value * 100
 
     text1 = font.render(str(int(value * 100)) + "%", True, (0, 0, 0), (255, 255, 255))
 
@@ -99,15 +98,16 @@ while run:
     cuvets.draw(screen)
     screen.blit(text1, (225, 90))
 
+    print schuif["value"]
+
     #update slider
-    if schuif["click"] and 225 > pygame.mouse.get_pos()[0] > 95:
-        schuif["pos"] = pygame.mouse.get_pos[0] - 95
+    if schuif["click"] and 226 > pygame.mouse.get_pos()[0] > 20:
+        schuif["value"] = (float(pygame.mouse.get_pos()[0] - 20)) / 206 * 180 - 90
         schuif["rect"].centerx = pygame.mouse.get_pos()[0]
 
     #draw slider
-    pygame.draw.line(screen, (0, 0, 0), (95, 60), (225, 60), 5)
+    pygame.draw.line(screen, (0, 0, 0), (20, 60), (226, 60), 5)
     pygame.draw.rect(screen, (255, 208, 69), schuif["rect"])
-    print schuif["pos"]
 
     #drawing other stuff
     pygame.draw.rect(screen, (222, 0, 0), pygame.Rect(20, 90, 20, 20), 0)
@@ -120,6 +120,5 @@ while run:
     displayScreen = pygame.draw.lines(screen, (0, 0, 0), True, ((210, 130), (210, 110), (218, 110), (218, 90), (202, 90), (202, 110), (210, 110)), 3)
 
     pygame.display.flip()
-    clock.tick(60)
 
 __author__ = 'luko'
